@@ -1,0 +1,433 @@
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f4f7f2;
+    color: #2d3e35;
+    overflow-x: hidden;
+}
+
+.dashboard-wrapper {
+    display: flex;
+}
+
+/* 20% Sidebar */
+.side-panel {
+    width: 20%;
+    background: #3f6f59;
+    color: #f8faf9;
+    padding: 40px 25px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.05);
+}
+
+.feed-container {
+    margin-left: 20%;
+    flex: 1;
+    padding: 60px 80px;
+}
+
+#state-title {
+    font-family: 'Tenor Sans', serif;
+    font-size: 2.2rem;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.panel-subtitle {
+    opacity: 0.7;
+    font-weight: 300;
+    margin-bottom: 40px;
+}
+
+.back-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-bottom: 40px;
+    transition: 0.3s;
+    width: fit-content;
+}
+
+.back-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* Navigation */
+.side-nav { display: flex; flex-direction: column; gap: 10px; }
+.nav-item {
+    background: transparent; border: none;
+    color: rgba(255,255,255,0.6);
+    text-align: left; padding: 15px;
+    border-radius: 12px; cursor: pointer; transition: 0.3s;
+}
+.nav-item.active { background: rgba(255,255,255,0.1); color: white; font-weight: 600; }
+
+/* Grid & Cards */
+.section-title {
+    font-family: 'Tenor Sans', serif;
+    font-size: 1.8rem; color: #3f6f59;
+    margin-bottom: 40px;
+}
+
+#news-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.tab-content {
+    display: none; /* Hide all by default */
+}
+
+.tab-content.active {
+    display: block; /* Show only the one with .active */
+}
+
+.news-card {
+    background: white; border-radius: 20px; padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    display: flex; flex-direction: column;
+    height: 200px; transition: 0.3s;
+}
+.news-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(63, 111, 89, 0.1); }
+
+.news-card h2 {
+    font-family: 'Tenor Sans', serif; font-size: 1.1rem;
+    color: #3f6f59; margin: 8px 0;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.card-teaser {
+    font-size: 0.82rem; color: #556b5e; margin-bottom: 10px;
+    display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.read-more-btn {
+    margin-top: auto; background: #edf4ec; color: #3f6f59;
+    border: 1px solid rgba(63,111,89,0.1); padding: 8px 20px;
+    border-radius: 100px; font-weight: 600; cursor: pointer; transition: 0.3s;
+}
+.read-more-btn:hover { background: #3f6f59; color: white; }
+
+.search-bar {
+    margin-bottom: 20px;
+    width: 100%; /* Ensures the wrapper manages the footprint layout */
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0; /* Subtle grayish-blue border looks cleaner than stark #ddd */
+    font-size: 14px;
+    box-sizing: border-box; /* CRITICAL: Prevents the padding from blowing out width calculations */
+    background-color: #ffffff;
+    color: #1e293b; /* Dark charcoal text color for high legibility */
+    transition: all 0.2s ease-in-out; /* Makes focusing animations look silky smooth */
+}
+
+
+.search-bar input::placeholder {
+    color: #94a3b8; 
+}
+.search-bar input:focus {
+    outline: none; 
+    border-color: #3f6f59; 
+    box-shadow: 0 0 0 3px rgba(63, 111, 89, 0.15); 
+    background-color: #fcfdfc;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; position: fixed; z-index: 2000;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(45, 62, 53, 0.4); backdrop-filter: blur(10px);
+    justify-content: center; align-items: center;
+}
+.modal-content {
+    background: #f8faf9; width: 85%; max-width: 1100px;
+    height: 75vh; border-radius: 30px; overflow: hidden; position: relative;
+}
+.modal-layout { display: flex; height: 100%; }
+.modal-image-panel { width: 25%; background-size: cover; background-position: center; background-color: #3f6f59; }
+.modal-body-panel { width: 75%; padding: 60px; overflow-y: auto; }
+.ai-summary-container { margin: 30px 0; padding: 25px; background: white; border-left: 5px solid #3f6f59; border-radius: 15px; }
+.ai-tag { font-size: 0.65rem; font-weight: 800; color: #3f6f59; margin-bottom: 10px; }
+.close-btn { position: absolute; top: 20px; right: 30px; background: none; border: none; font-size: 2rem; cursor: pointer; }
+
+/* =========================
+   ANALYTICS DASHBOARD
+========================= */
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.overview-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.overview-label {
+    font-size: 0.8rem;
+    color: #6b7d73;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.overview-card h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: #3f6f59;
+    font-family: 'Tenor Sans', serif;
+}
+
+/* ==========================================
+   AI EXECUTIVE BRIEFING COMPONENT 
+========================================== */
+.ai-overview-card {
+    background: white;
+    border-radius: 24px;
+    padding: 25px 30px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    border-left: 5px solid #3f6f59;
+}
+
+.ai-overview-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.ai-sparkle-icon {
+    font-size: 1.2rem;
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.ai-overview-header h3 {
+    margin: 0;
+    font-family: 'Tenor Sans', serif;
+    font-size: 1.1rem;
+    color: #3f6f59;
+}
+
+.ai-brief-content ul {
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ai-brief-content li {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: #44544a;
+}
+
+@keyframes pulseGlow {
+    0% { opacity: 0.6; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0.6; transform: scale(0.95); }
+}
+
+.sentiment-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: #edf4ec;
+    border-radius: 10px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+
+/* Row 1: Entity Recognition (1/3) + Trend (2/3) */
+.analytics-row-1 {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* This makes the Trend card twice as wide */
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Row 2: 3 Equal Columns */
+.analytics-row-2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.analytics-card {
+    background: white;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container {
+    flex-grow: 1;
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+/* Specific height for Row 1 wide card if needed */
+.wide-card {
+    min-height: 320px;
+}
+
+
+#sentimentChart {
+    display: flex;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#categoryChart {
+    display: flex;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Entity Cloud */
+
+.entity-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.entity-tag {
+    background: #edf4ec;
+    color: #3f6f59;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+
+
+/* SECTION 2: OVERVIEW CARDS */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.overview-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.overview-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #8a9a91;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* SECTION 3: ANALYTICS CARDS */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Force 3 equal columns */
+    gap: 20px; /* Reduced gap to save horizontal space */
+    margin-top: 20px;
+}
+
+.analytics-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px; /* Reduced padding from 25px */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    min-height: 200px; /* Consistent height for the row */
+}
+
+.analytics-card h3 {
+    font-family: 'Tenor Sans', serif;
+    font-size: 1rem; /* Slightly smaller title to fit row */
+    color: #3f6f59;
+    margin-bottom: 15px;
+}
+
+/* Specific adjustments for Entity Tags to keep them tight */
+.entity-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.entity-tag {
+    background: #edf4ec;
+    color: #3f6f59;
+    padding: 6px 12px;
+    border-radius: 100px;
+    font-size: 0.75rem; /* Smaller tags for 3-column layout */
+    font-weight: 500;
+}
+
+.chart-placeholder {
+    flex-grow: 1; /* Makes placeholder fill the card height */
+    background: #f9fbf9;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #ced7d1;
+    color: #8a9a91;
+    font-size: 0.75rem;
+}
+
+/* Container for meta info at the top of the card */
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.card-date {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* The modern clean category pill look */
+.card-category-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    background-color: rgba(63, 111, 89, 0.1); /* Soft variation of your sage green theme */
+    color: #3f6f59; /* Solid deep sage green font text */
+    border-radius: 12px;
+}

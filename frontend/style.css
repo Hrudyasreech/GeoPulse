@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Inter:wght@300;400&display=swap');
+* {
+
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    font-family: system-ui, sans-serif, 'Tenor Sans', 'Inter', Arial;
+    background: #edf4ec;
+    overflow: hidden;
+    color: #2d3e35;
+}
+
+
+
+.main-container {
+
+    display: flex;
+
+    height: 100vh;
+}
+
+
+
+.left-panel {
+
+    width: 30%;
+
+    background: #3f6f59;
+
+    color: #f8faf9;
+
+    padding: 40px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+
+.left-panel h1 {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 5.5rem;
+    font-weight: 600; 
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+}
+
+
+
+.left-panel p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 300; 
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+
+
+.map-container {
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #edf4ec;
+}
+
+
+
+.map-card {
+
+    width: 85%;
+
+    height: 95vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 24px;
+
+    background: rgba(255,255,255,0.25);
+
+    backdrop-filter: blur(8px);
+
+    box-shadow:
+    0 8px 32px rgba(0,0,0,0.06);
+}
+
+
+
+#map {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+    
+}
+
+
+
+#map svg {
+
+    width: 90vh;
+
+    height: 95vh;
+
+    max-width: 100%;
+}
+
+
+path {
+     
+    fill: #7aa38a;
+
+    stroke: white;
+
+    stroke-width: 1;
+
+    transition: 0.3s;
+}
+
+
+
+path:hover {
+    fill: #5c8a6b;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+#tooltip {
+
+    position: absolute;
+
+    background: rgba(255,255,255,0.92);
+
+    backdrop-filter: blur(12px);
+
+    padding: 14px 18px;
+
+    border-radius: 16px;
+
+    box-shadow:
+    0 8px 24px rgba(0,0,0,0.08);
+
+    color: #2d3e35;
+
+    font-family: 'Inter', sans-serif;
+
+    font-size: 0.95rem;
+
+    line-height: 1.5;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transition: opacity 0.2s ease;
+
+    z-index: 999;
+}
+
+#tooltip strong {
+
+    font-size: 1rem;
+
+    color: #3f6f59;
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeoPulse | Intelligence Dashboard</title>
+    <link rel="stylesheet" href="news.css"/>
+</head>
+<body>
+    <div class="dashboard-wrapper">
+        <aside class="side-panel">
+            <button class="back-btn" onclick="goBack()">← Back to Map</button>
+            
+            <div class="panel-content">
+                <h1 id="state-title">State</h1>
+                <p class="panel-subtitle">Regional Intelligence</p>
+
+                <nav class="side-nav">
+                    <button class="nav-item active" onclick="switchTab('News', event)"><span class="icon">📰</span>News</button>
+                    <button class="nav-item" onclick="switchTab('Analytics', event)"><span class="icon">📊</span> Analytics</button>
+                </nav>
+                <!-- In news.html, inside side-panel div, after the nav -->
+                <div class="refresh-section">
+                    <button class="refresh-btn" onclick="refreshStateData()">
+                        ↻ Refresh Data
+                    </button>
+                    <p class="refresh-hint" id="refresh-status"></p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="feed-container">
+            <section id="Analytics-section" class="tab-content">
+                <h2 class="section-title">Intelligence Overview</h2>
+                
+                <div class="ai-overview-card">
+                    <div class="ai-overview-header">
+                        <span class="ai-sparkle-icon">✨</span>
+                        <h3>AI Regional Executive Briefing</h3>
+                    </div>
+                    <div class="ai-brief-content">
+                        <ul id="state-ai-summary">
+                            <li>Analyzing data streaming from regional publications...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <span class="overview-label">Total Articles</span>
+                        <h3 id="article-count">Loading...</h3>
+                    </div>
+                    <div class="overview-card">
+                        <span class="overview-label">News Freshness</span>
+                        <h3 id="news-freshness">Loading...</h3>
+                    </div>
+                    <div class="overview-card">
+                        <span class="overview-label">News Alert Level</span>
+                        <h3 id="news-alert-level">Loading...</h3>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <span class="overview-label">Coverage Intensity</span>
+                        <h3 id="coverage-intensity">Loading...</h3>
+                    </div>
+                    <div class="overview-card">
+                        <span class="overview-label">Topic Diversity</span>
+                        <h3 id="topic-diversity">Loading...</h3>
+                    </div>
+                    <div class="overview-card">
+                        <span class="overview-label">Sentiment Shift</span>
+                        <h3 id="sentiment-shift">Loading</h3>
+                    </div>
+                </div>
+
+                <div class="analytics-row-1">
+                    <div class="analytics-card">
+                        <h3>Entity Recognition</h3>
+                        <div class="entity-cloud" id="entity-cloud"></div>
+                    </div>
+                    <div class="analytics-card wide-card">
+                        <h3>Sentiment Trend (7D)</h3>
+                        <div class="chart-container">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-row-2">
+                    <div class="analytics-card">
+                        <h3>Sentiment Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="sentimentChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Category Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Activity Timeline</h3>
+                        <div class="chart-container">
+                            <canvas id="activityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="News-section" class="tab-content active">
+                <h2 class="section-title">Regional News Feed</h2>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder=" 🔍 Search news..." oninput="filterNews()"/>
+                </div>
+                <div id="news-container"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="article-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-layout">
+                <div class="modal-image-panel" id="modal-img"></div>
+                <div class="modal-body-panel">
+                    <div class="modal-header">
+                        <span id="modal-date" class="date-label"></span>
+                        <h1 id="modal-title"></h1>
+                    </div>
+                    <div class="ai-summary-container">
+                        <div class="ai-tag">AI INTERPRETATION</div>
+                        <p id="modal-description"></p>
+                    </div>
+                    <a id="modal-link" href="#" target="_blank" class="read-more-btn">View Original Source</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="news.js"></script>
+</body>
+</html>
