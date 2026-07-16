@@ -53,10 +53,6 @@ This approach keeps the analytics transparent while allowing the LLM to focus on
 
 ## System Architecture
 
-<p align="center">
-  <img src="docs/architecture.png" width="650">
-</p>
-
 GeoPulse follows a modular NLP pipeline.
 
 1. News articles are collected through the Currents API.
@@ -195,6 +191,31 @@ http://localhost:8080
 ---
 ## Screenshots
 
+## Screenshots
+
+### Dashboard
+
+<p align="center">
+  <img src="images/dashboard.png" alt="GeoPulse Dashboard" width="800">
+</p>
+
+### State-wise News Dashboard
+
+<p align="center">
+  <img src="images/state_dashboard.png" alt="State Dashboard" width="800">
+</p>
+
+### AI Executive Briefing
+
+<p align="center">
+  <img src="images/analytics1.png" alt="Analytics Dashboard" width="800">
+</p>
+
+### Analysis
+
+<p align="center">
+  <img src="images/analytics2.png" alt="Executive Briefing" width="800">
+</p>
 ---
 
 ## Author
