@@ -191,8 +191,6 @@ http://localhost:8080
 ---
 ## Screenshots
 
-## Screenshots
-
 ### Dashboard
 
 <p align="center">
@@ -216,6 +214,7 @@ http://localhost:8080
 <p align="center">
   <img src="images/analytics2.png" alt="Executive Briefing" width="800">
 </p>
+
 ---
 
 ## Author
